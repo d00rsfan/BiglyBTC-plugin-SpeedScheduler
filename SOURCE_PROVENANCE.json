@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/d00rsfan/BiglyBTC-plugin-SpeedScheduler",
-  "local_review_commit": "6f3c5f29938da958031173805ce9cf8ae15445f1",
+  "local_review_commit": "dedb0b9fc9f22ba7015764a1e52aebc4e4c16afd",
   "original_biglybt_commit": "cb8c6cb9bb97916cbc7e80338a017200ffc3e71f",
   "sdk_commit": "eefbd205ca0940ad4868ee07989b2d42be1a99dc",
   "core_commit": null,
@@ -10,7 +10,7 @@
     ".gitattributes": "71d291c28b1e6e722a2d6eb24c952e1464a7297c74c434bb9ca256d7384d73c7",
     "CMakeLists.txt": "a9ebfaf53e645b946d9fb3571699f9808cd375a80c5235ca612602e60b1b92e9",
     "NOTICE.md": "931ecbb2e41cc29addd676e7f1d24f956a77e129fc24bf65de10d5ea3f73df49",
-    "README.md": "0de1dbc2400bf185800440e4ac3a269fd7828734273e787e918d17a857818bff",
+    "README.md": "b92aae6466113128c5e251404500a9aff4f0ce5562cb16aeff98818cd2b7efdc",
     "fixture_test.py": "5547caa4b189bf6f5a33a3d2f52235a3f4948dd98d6ee04c7c33c3ebe22013ec",
     "module.cpp": "59f81f65f88088758bfc554e81904f0c265e11491897d221b5550130d2de5da4",
     "module_driver.cpp": "554528d69b558712809f8ec709565c6caefb9bcfacc165de512d240be4540c0c",
