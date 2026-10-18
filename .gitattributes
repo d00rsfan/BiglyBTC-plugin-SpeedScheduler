@@ -1,0 +1,4 @@
+# Frozen observations retain their exact encodings and line endings on export.
+/fixtures/** -text
+/tick-fixtures/** -text
+/ownership-fixtures/** -text

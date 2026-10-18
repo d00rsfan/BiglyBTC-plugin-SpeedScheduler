@@ -1,0 +1,92 @@
+name: SpeedScheduler offline compatibility
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  compatibility:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        compiler: [gcc, asan]
+    env:
+      TMPDIR: /tmp
+      ASAN_OPTIONS: detect_leaks=1:abort_on_error=1
+      UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: d00rsfan/BiglyBTC
+          ref: 'eefbd205ca0940ad4868ee07989b2d42be1a99dc'
+          path: sdk-source
+          persist-credentials: false
+      - name: Install pinned compiler and Qt6.12.0 Core
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash ci/hosted-preview-dependencies.sh --install qt-core "$RUNNER_TEMP/biglybtc-scheduler-dependencies"
+          sudo apt-get install --yes --no-install-recommends cmake=4.2.3-2ubuntu2 ninja-build=1.13.2-1
+          dpkg-query -W -f='${binary:Package}\t${Version}\n' > "$RUNNER_TEMP/biglybtc-scheduler-dependencies/final-packages.tsv"
+      - name: Compile SDK and replay all six scheduler suites
+        shell: bash
+        env:
+          COMPILER_KIND: ${{ matrix.compiler }}
+        run: |
+          set -euo pipefail
+          build_type=Release
+          flags=
+          if [[ "$COMPILER_KIND" == asan ]]; then
+            build_type=Debug
+            flags="-fsanitize=address,undefined -fno-omit-frame-pointer"
+          fi
+          sdk_build="$RUNNER_TEMP/biglybtc-scheduler-sdk-$COMPILER_KIND"
+          sdk_prefix="$RUNNER_TEMP/biglybtc-scheduler-sdk-prefix-$COMPILER_KIND"
+          build="$RUNNER_TEMP/biglybtc-scheduler-$COMPILER_KIND"
+          evidence="$RUNNER_TEMP/biglybtc-scheduler-evidence-$COMPILER_KIND"
+          mkdir -m 700 "$evidence"
+          test "$(git -C sdk-source rev-parse HEAD)" = 'eefbd205ca0940ad4868ee07989b2d42be1a99dc'
+          git rev-parse HEAD > "$evidence/plugin-commit.txt"
+          git -C sdk-source rev-parse HEAD > "$evidence/sdk-commit.txt"
+          sha256sum SOURCE_PROVENANCE.json CMakeLists.txt cmake/Toolchain.cmake sdk-source/plugin-sdk/include/biglybtc/scheduler.h > "$evidence/source-inputs.sha256"
+          /usr/bin/cmake -S sdk-source/plugin-sdk -B "$sdk_build" -G Ninja -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_C_COMPILER=/usr/bin/gcc-16 -DCMAKE_CXX_COMPILER="$BIGLYBTC_CXX" -DCMAKE_C_FLAGS="$flags" -DCMAKE_CXX_FLAGS="$flags" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX="$sdk_prefix" -DBIGLYBTC_SDK_TESTS=ON 2>&1 | tee "$evidence/sdk-configure.log"
+          nice -n 5 /usr/bin/cmake --build "$sdk_build" -j2 2>&1 | tee "$evidence/sdk-build.log"
+          /usr/bin/ctest --test-dir "$sdk_build" --output-on-failure --output-junit "$evidence/sdk-ctest.xml" 2>&1 | tee "$evidence/sdk-ctest.log"
+          /usr/bin/cmake --install "$sdk_build" 2>&1 | tee "$evidence/sdk-install.log"
+          /usr/bin/cmake -S . -B "$build" -G Ninja -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_CXX_COMPILER="$BIGLYBTC_CXX" -DCMAKE_CXX_FLAGS="$flags" -DCMAKE_PREFIX_PATH="$sdk_prefix;$BIGLYBTC_QT_PREFIX" -DBIGLYBTC_BUILD_PLUGIN=ON 2>&1 | tee "$evidence/scheduler-configure.log"
+          nice -n 5 /usr/bin/cmake --build "$build" -j2 2>&1 | tee "$evidence/scheduler-build.log"
+          /usr/bin/ctest --test-dir "$build" --output-on-failure --output-junit "$evidence/scheduler-ctest.xml" 2>&1 | tee "$evidence/scheduler-ctest.log"
+          sha256sum "$build/BiglyBTC-plugin-SpeedScheduler.so" "$build/libbiglybtc_scheduler_policy.a" "$build/scheduler-module-driver" "$build/scheduler-tests" "$build/ownership-tests" "$sdk_build/libbiglybtc_plugin_host.a" > "$evidence/binaries.sha256"
+      - name: Preserve build, test, and dependency evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: scheduler-ubuntu-26.04-${{ matrix.compiler }}
+          path: |
+            SOURCE_PROVENANCE.json
+            ${{ runner.temp }}/biglybtc-scheduler-evidence-${{ matrix.compiler }}/
+            ${{ runner.temp }}/biglybtc-scheduler-${{ matrix.compiler }}/CMakeCache.txt
+            ${{ runner.temp }}/biglybtc-scheduler-${{ matrix.compiler }}/compile_commands.json
+            ${{ runner.temp }}/biglybtc-scheduler-${{ matrix.compiler }}/Testing/Temporary
+            ${{ runner.temp }}/biglybtc-scheduler-sdk-${{ matrix.compiler }}/CMakeCache.txt
+            ${{ runner.temp }}/biglybtc-scheduler-sdk-${{ matrix.compiler }}/compile_commands.json
+            ${{ runner.temp }}/biglybtc-scheduler-sdk-${{ matrix.compiler }}/Testing/Temporary
+            ${{ runner.temp }}/biglybtc-scheduler-dependencies/*.txt
+            ${{ runner.temp }}/biglybtc-scheduler-dependencies/*.tsv
+            ${{ runner.temp }}/biglybtc-scheduler-dependencies/*.log
+            ${{ runner.temp }}/biglybtc-scheduler-dependencies/*.env
+            ${{ runner.temp }}/biglybtc-scheduler-dependencies/qt-archives-SHA256SUMS
+            ${{ runner.temp }}/biglybtc-scheduler-dependencies/qt-Updates*.xml
+          if-no-files-found: warn
+          retention-days: 7

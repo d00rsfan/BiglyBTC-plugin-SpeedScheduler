@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SpeedScheduler>
+   <defaultRates upload="7" download="9" enforce="0"/>
+   <schedules>
+      <schedule enabled="true">
+         <startTime hour="8" minute="0"/>
+         <endTime hour="17" minute="0"/>
+         <rates upload="0" download="0" pauseDownloads="true" pauseSeeds="false"/>
+         <days>
+            <day index="0" selected="true"/>
+            <day index="1" selected="false"/>
+            <day index="2" selected="false"/>
+            <day index="3" selected="false"/>
+            <day index="4" selected="false"/>
+            <day index="5" selected="false"/>
+            <day index="6" selected="false"/>
+         </days>
+         <category selected="media"/>
+         <catSelection not_in="false" in="false"/>
+      </schedule>
+      <schedule enabled="true">
+         <startTime hour="22" minute="0"/>
+         <endTime hour="2" minute="0"/>
+         <rates upload="3" download="10" pauseDownloads="false" pauseSeeds="true"/>
+         <days>
+            <day index="0" selected="false"/>
+            <day index="1" selected="true"/>
+            <day index="2" selected="false"/>
+            <day index="3" selected="false"/>
+            <day index="4" selected="false"/>
+            <day index="5" selected="false"/>
+            <day index="6" selected="false"/>
+         </days>
+         <category selected="keep"/>
+         <catSelection not_in="true" in="false"/>
+      </schedule>
+      <schedule enabled="true">
+         <startTime hour="12" minute="34"/>
+         <endTime hour="12" minute="34"/>
+         <rates upload="6" download="20" pauseDownloads="true" pauseSeeds="false"/>
+         <days>
+            <day index="0" selected="false"/>
+            <day index="1" selected="false"/>
+            <day index="2" selected="true"/>
+            <day index="3" selected="false"/>
+            <day index="4" selected="false"/>
+            <day index="5" selected="false"/>
+            <day index="6" selected="false"/>
+         </days>
+         <category selected="media"/>
+         <catSelection not_in="false" in="true"/>
+      </schedule>
+      <schedule enabled="false">
+         <startTime hour="8" minute="0"/>
+         <endTime hour="17" minute="0"/>
+         <rates upload="9" download="30" pauseDownloads="false" pauseSeeds="true"/>
+         <days>
+            <day index="0" selected="false"/>
+            <day index="1" selected="false"/>
+            <day index="2" selected="false"/>
+            <day index="3" selected="true"/>
+            <day index="4" selected="false"/>
+            <day index="5" selected="false"/>
+            <day index="6" selected="false"/>
+         </days>
+         <category selected="שب"/>
+         <catSelection not_in="false" in="true"/>
+      </schedule>
+      <schedule enabled="true">
+         <startTime hour="8" minute="0"/>
+         <endTime hour="17" minute="0"/>
+         <rates upload="12" download="40" pauseDownloads="true" pauseSeeds="false"/>
+         <days>
+            <day index="0" selected="true"/>
+            <day index="1" selected="true"/>
+            <day index="2" selected="true"/>
+            <day index="3" selected="true"/>
+            <day index="4" selected="true"/>
+            <day index="5" selected="true"/>
+            <day index="6" selected="true"/>
+         </days>
+         <category selected="media"/>
+         <catSelection not_in="false" in="false"/>
+      </schedule>
+   </schedules>
+</SpeedScheduler>

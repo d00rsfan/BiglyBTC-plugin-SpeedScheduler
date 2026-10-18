@@ -1,0 +1,34 @@
+{
+  "source_commit": "1ee6a53dae017696d2f0002e4a0d74f5a9476af5",
+  "original_plugin_class_digest": "8f6a561f700e214fdb4aeda5242466b3e5e242ef2e3a5a0cd7fdb46c7959200f",
+  "harness_sha256": {
+    "ReferenceFence.java": "ee2c0200a2dfe240f7db4e4dad636b35d6a630561994d261e7182d74085b1933",
+    "SpeedSchedulerOracle.java": "56fe63c615117da7cc01bf4787fac81c65e11b1e4865a03b15b1cdb32f159a15"
+  },
+  "cases": [
+    {
+      "input": "original-writer.xml",
+      "expected": "original-writer.expected",
+      "input_sha256": "fcf9866d582fa83ad7cbb68526e418df9d233f1ec1b299b671287f15fb8653cd",
+      "expected_sha256": "e2c3dbca9b15f977153cf032ff2612f0d3cbc84079a77297acbc3f8e4f6f4cf4"
+    },
+    {
+      "input": "legacy-and-unknown.xml",
+      "expected": "legacy-and-unknown.expected",
+      "input_sha256": "695b26e458dc8ef762dc6114f1528dd50baedd4c3b8a9e17a679c20fd30c8aba",
+      "expected_sha256": "749cf708dae835d427a606c085d03a2267f56d028c5759d7e93c8a93bcc634ee"
+    },
+    {
+      "input": "utf16-original-xml.xml",
+      "expected": "utf16-original-xml.expected",
+      "input_sha256": "2f4ab75f5369f30044214cecb5e376beac538cb76e6ea665169fa3d1c57ccc62",
+      "expected_sha256": "749cf708dae835d427a606c085d03a2267f56d028c5759d7e93c8a93bcc634ee"
+    },
+    {
+      "input": "deterministic-boundaries.xml",
+      "expected": "deterministic-boundaries.expected",
+      "input_sha256": "64fbb6a921fe260341ba6b4dc0a50d2c4521fa7c1e0f0047be30935c78cd2bcb",
+      "expected_sha256": "2ae2d3ff2a9e0c4a687f56883d1ce8db912d188c35b86c6d04b37408ad0e2d93"
+    }
+  ]
+}

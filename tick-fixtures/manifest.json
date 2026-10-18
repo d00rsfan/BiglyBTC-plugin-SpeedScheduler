@@ -1,0 +1,113 @@
+{
+  "source_commit": "1ee6a53dae017696d2f0002e4a0d74f5a9476af5",
+  "source_class_digest": "8f6a561f700e214fdb4aeda5242466b3e5e242ef2e3a5a0cd7fdb46c7959200f",
+  "source_overlay": false,
+  "fixture_boundaries": [
+    "Synchronous one-tick execution; a host sleep-setting query throws a test Error before the second tick",
+    "Empty source-built core supplies the original tag service; plugins disabled and listener fenced to one owned loopback port",
+    "Host download/rate values are proxies; AutoSpeed/environmental getters/setters are overridden by the fixture subclass",
+    "Schedules select all real local days/minutes or none, avoiding a source clock overlay; exhaustive original time differential is separate"
+  ],
+  "cases": [
+    {
+      "case": "global-overlap",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "14699da92812d39682b7d0d13a557caf43d1c46e13a1d8bdfaf7a983692d1f95",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "278940f27c9bc8afcbadcc88bdd51f293e705a6f253a6529086932cf710ed475"
+      }
+    },
+    {
+      "case": "global-and-exclusion",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "528dd96ea99f746ae04ebd834128d7ca15ca118c6eef9472ec45df57208bd8e7",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "d78dbda15ea7f70eb375406e7e9bf132bde93099fb87e2f320cd29cbae37690f"
+      }
+    },
+    {
+      "case": "category-only",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "bf9c222eea0edf0a8a512f885946ad772f55caff5824ca2359a05a971a93eec6",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "55bbca3e599ef473f47177b00f3f55b5bc96eec742d9ff85ce8fdc91a697ea3e"
+      }
+    },
+    {
+      "case": "both-category-flags",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "62a22bc56da0b68ff7fc89d2c4ad47ac06428287f959dc8db58a935f273a87e3",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "d78dbda15ea7f70eb375406e7e9bf132bde93099fb87e2f320cd29cbae37690f"
+      }
+    },
+    {
+      "case": "override-forced",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "c338aaca84f721c228b22d534e35d4b216c27e34f1c6bcb3ce7f4acbf47c4e70",
+        "values.properties": "af50bd20e9cf3995f098715ea70b7069edadf7af8c8a19c764174531e8796de0",
+        "original.expected": "7bd5583d23ee9e72a34a15fe5e9fa418d439431dd7dd4c23d0f3e0e496917b51"
+      }
+    },
+    {
+      "case": "disabled-polling",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "c338aaca84f721c228b22d534e35d4b216c27e34f1c6bcb3ce7f4acbf47c4e70",
+        "values.properties": "0213f9ccfd42ddbbb5e7ad18cbaf9e68b9c94dc79142817adb38dd016036f7a2",
+        "original.expected": "6398aac36a1da67114d160ff21cb09d34e38113fe22616ff16f3f922e06625ea"
+      }
+    },
+    {
+      "case": "startup-default-restore",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "4a97894fadd30660822994b94e715b5b4f1c6de82c3fbdcea933a146f7eccac8",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "6cfd26da71d635b662999670d8e5d394ff1ee062528288fbe31e8a023a4c8506"
+      }
+    },
+    {
+      "case": "settled-unenforced-defaults",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "4a97894fadd30660822994b94e715b5b4f1c6de82c3fbdcea933a146f7eccac8",
+        "values.properties": "fb9a069d72b9d4ddd0396b93ea0115de384f17b79051b6f0fb391dc63aeca9e7",
+        "original.expected": "e92697fe9ea344e83f969cbd176d3b6d77e18445740d6c424c7d45c5b0e93d02"
+      }
+    },
+    {
+      "case": "enforced-defaults",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "3f6ff02b46f5c1935a73b9d1e3f89c2b83ad13874600477de304b6df23e09ae4",
+        "values.properties": "fb9a069d72b9d4ddd0396b93ea0115de384f17b79051b6f0fb391dc63aeca9e7",
+        "original.expected": "6cfd26da71d635b662999670d8e5d394ff1ee062528288fbe31e8a023a4c8506"
+      }
+    },
+    {
+      "case": "selection-and-rate-order",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "099bab65ff14f4fe97c68ef88e484e889785d5df45de36e133b543264b8b98cd",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "d93a24be78b77b298999eccc4eb8a20b93b4e0aff6b091336ec3b863f7879d60"
+      }
+    },
+    {
+      "case": "unicode-category",
+      "torrent_states": 576,
+      "sha256": {
+        "SavedSchedules.xml": "822edab246f04012eb925e965190c7e17c25b7984f4f41bd212bc199cc33d3c7",
+        "values.properties": "0555307dd7f05af16214e634ed002475cd513f2699a7fdebaad4cd8a1eceaba3",
+        "original.expected": "e6a76a3a85e2e86006a6cbb60b544d874339ac333635c65b16416f87785fbc22"
+      }
+    }
+  ],
+  "total_torrent_states": 6336
+}

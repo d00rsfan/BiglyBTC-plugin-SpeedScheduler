@@ -1,0 +1,7 @@
+<?xml version="1.0"?><SpeedScheduler future="retain"><!-- opaque -->
+<defaultRates upload="+007" download="9"/>
+<schedules><schedule><startTime hour="22" minute="0"/><endTime hour="2" minute="0"/>
+<rates upload="0" download="42" pauseTransfers="TrUe"/>
+<days><day index="1" selected="TrUe"/></days><category selected="&#1513;&amp;&#1576;"/>
+<catSelection not_in="true" in="true"/><future key="unknown">opaque</future></schedule>
+<ScHeDuLe enabled="FaLsE"><rates upload="3" download="4"/><category/></ScHeDuLe></schedules></SpeedScheduler>
