@@ -27,7 +27,8 @@ if(BIGLYBTC_BUILD_PLUGIN)
   find_package(BiglyBTCPluginSDK 0.1.0 EXACT CONFIG REQUIRED)
   add_library(BiglyBTC-plugin-SpeedScheduler MODULE module.cpp)
   set_target_properties(BiglyBTC-plugin-SpeedScheduler PROPERTIES PREFIX "" CXX_VISIBILITY_PRESET hidden
-    VISIBILITY_INLINES_HIDDEN ON CXX_EXTENSIONS OFF)
+    VISIBILITY_INLINES_HIDDEN ON CXX_EXTENSIONS OFF
+    BUILD_WITH_INSTALL_RPATH ON INSTALL_RPATH "$ORIGIN")
   target_link_libraries(BiglyBTC-plugin-SpeedScheduler PRIVATE biglybtc_scheduler_policy BiglyBTC::PluginAPI)
   target_compile_definitions(BiglyBTC-plugin-SpeedScheduler PRIVATE BT_NATIVE_VERSION="${scheduler_version}")
   target_compile_options(BiglyBTC-plugin-SpeedScheduler PRIVATE -Wall -Wextra -Wpedantic -Werror)
@@ -47,7 +48,8 @@ if(BIGLYBTC_BUILD_PLUGIN)
   add_test(NAME original-scheduler-module-fixtures COMMAND Python3::Interpreter
     "${CMAKE_CURRENT_SOURCE_DIR}/module_fixture_test.py" "$<TARGET_FILE:scheduler-module-driver>"
     "$<TARGET_FILE:BiglyBTC-plugin-SpeedScheduler>")
-  set_tests_properties(original-scheduler-module-fixtures PROPERTIES TIMEOUT 180)
+  set_tests_properties(original-scheduler-module-fixtures PROPERTIES TIMEOUT 180
+    ENVIRONMENT_MODIFICATION "LD_LIBRARY_PATH=path_list_prepend:$<TARGET_FILE_DIR:Qt6::Core>")
 endif()
 add_test(NAME original-scheduler-xml-time-fixtures COMMAND Python3::Interpreter
   "${CMAKE_CURRENT_SOURCE_DIR}/fixture_test.py" "$<TARGET_FILE:scheduler-tests>")

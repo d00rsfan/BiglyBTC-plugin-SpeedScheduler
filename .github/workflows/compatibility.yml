@@ -64,6 +64,7 @@ jobs:
           /usr/bin/cmake -S . -B "$build" -G Ninja -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_CXX_COMPILER="$BIGLYBTC_CXX" -DCMAKE_CXX_FLAGS="$flags" -DCMAKE_PREFIX_PATH="$sdk_prefix;$BIGLYBTC_QT_PREFIX" -DBIGLYBTC_BUILD_PLUGIN=ON "-DBIGLYBTC_PLUGIN_BUILD_NUMBER=$GITHUB_RUN_NUMBER" 2>&1 | tee "$evidence/scheduler-configure.log"
           nice -n 5 /usr/bin/cmake --build "$build" -j2 2>&1 | tee "$evidence/scheduler-build.log"
           /usr/bin/ctest --test-dir "$build" --output-on-failure --output-junit "$evidence/scheduler-ctest.xml" 2>&1 | tee "$evidence/scheduler-ctest.log"
+          readelf --dynamic "$build/BiglyBTC-plugin-SpeedScheduler.so" | grep -F '[$ORIGIN]'
           sha256sum "$build/BiglyBTC-plugin-SpeedScheduler.so" "$build/libbiglybtc_scheduler_policy.a" "$build/scheduler-module-driver" "$build/scheduler-tests" "$build/ownership-tests" "$sdk_build/libbiglybtc_plugin_host.a" > "$evidence/binaries.sha256"
       - name: Archive the tested Release build
         if: github.event_name != 'pull_request' && matrix.compiler == 'gcc'
