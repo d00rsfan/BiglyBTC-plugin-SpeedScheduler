@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
       number("upload"), number("download"), torrents.data(), static_cast<std::uint32_t>(torrents.size()), 0};
   const int directory = ::open("/tmp", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
   const bt_plugin_options_v1 options{sizeof(options), 1, directory, 0, "1.9.2", nullptr, nullptr};
-  auto module = biglybtc::plugins::Module::load(argv[1], "SpeedScheduler", BT_CAP_SCHEDULER, options);
+  auto module = biglybtc::plugins::Module::load(argv[1], "SpeedScheduler", BT_CAP_SCHEDULER, options, BT_EXPECTED_VERSION);
   ::close(directory);
   require(module.has_value());
   bt_scheduler_result_v1 result{};

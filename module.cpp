@@ -84,7 +84,10 @@ bt_status call(void* state, std::uint32_t operation, const void* input, std::uin
 }
 void stop(void* state) noexcept { if (state) { static_cast<Instance*>(state)->running = false; } }
 void destroy(void* state) noexcept { delete static_cast<Instance*>(state); }
-const bt_plugin_v1 Api{sizeof(Api), 1, "SpeedScheduler", "0.1.0", BT_CAP_SCHEDULER, create, start, call, stop, destroy};
+#ifndef BT_NATIVE_VERSION
+#define BT_NATIVE_VERSION "0.1.0"
+#endif
+const bt_plugin_v1 Api{sizeof(Api), 1, "SpeedScheduler", BT_NATIVE_VERSION, BT_CAP_SCHEDULER, create, start, call, stop, destroy};
 }
 extern "C" BT_PLUGIN_EXPORT const bt_plugin_v1* biglybtc_plugin_entry(std::uint32_t requested) {
   return requested == 1 ? &Api : nullptr;
